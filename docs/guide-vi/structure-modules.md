@@ -4,7 +4,7 @@ Modules
 Modules là các đơn vị phần mềm độc lập bao gồm các [models](structure-models.md), [views](structure-views.md),
 [controllers](structure-controllers.md), và các thành phần hỗ trợ khác. Người dùng cuối có thể truy cập các controller
 của module khi các controller đã được cài đặt trong [application](structure-applications.md). Vì những lý do này, thường được xem là
-ứng dụng nhỏ. Modules khác với [applications](structure-applications.md) trong đó các mô-đun không thể tự được triển khai
+ứng dụng nhỏ. Modules khác với [ứng dụng](structure-applications.md) trong đó các mô-đun không thể tự được triển khai
 và phải nằm trong các ứng dụng
 
 
@@ -30,9 +30,9 @@ forum/
 ### Lớp Module <span id="module-classes"></span>
 
 Mỗi module nên có một lớp module cơ sở được kế thừa từ lớp [[yii\base\Module]]. Lớp nên được đặt ngay dưới
-module [[yii\base\Module::basePath|base path]] và nên được [autoloadable](concept-autoloading.md).
+module [[yii\base\Module::basePath|base path]] và nên được [tự động tải](concept-autoloading.md).
 Khi một module đang được truy cập, một phiên bản của lớp module tương ứng sẽ được tạo.
-Giống như các [application instances](structure-applications.md), các phiên bản của module được dùng để chia sẽ dữ liệu và các component
+Giống như các [thực thể chương trình](structure-applications.md), các phiên bản của module được dùng để chia sẽ dữ liệu và các component
 cho mã trong các module.
 
 Ví dụ sau cho thấy lớp module trông như thế nào:
