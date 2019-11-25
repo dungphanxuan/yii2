@@ -37,7 +37,7 @@ bạn có thể chỉ định rõ ràng những hành động nào nên áp dụ
 `index` và `view`. Bạn cũng có thể cấu hình vào thuộc tính [[yii\base\ActionFilter::except|except]] để đưa vào danh sách loại bỏ
 một vài action không áp dụng bộ lọc.
 
-Bên cạn các controller, bạn có thể khai báo bộ lọc trong các [module](structure-modules.md) hoặc trong [ứng dụng](structure-applications.md).
+Bên cạnh các controller, bạn có thể khai báo bộ lọc trong các [module](structure-modules.md) hoặc trong [ứng dụng](structure-applications.md).
 Khi bạn làm như vậy, các bộ lọc sẽ áp dụng cho *tất cả* các action của controller thuộc về module hoặc ứng dụng,
 trừ khi bạn cấu hình thuộc tính cho bộ lọc' [[yii\base\ActionFilter::only|only]] và [[yii\base\ActionFilter::except|except]]
 như được mô tả trên.
@@ -144,8 +144,8 @@ Bộ lọc phương thức xác thực được sử dụng để xác thực ng
 [HTTP Basic Auth](http://en.wikipedia.org/wiki/Basic_access_authentication), [OAuth 2](http://oauth.net/2/).
 Các lớp bộ lọc này đều nằm trong không gian tên `yii\filters\auth`.
 
-The following example shows how you can use [[yii\filters\auth\HttpBasicAuth]] to authenticate a user using
-an access token based on HTTP Basic Auth method. Lưu ý rằng để làm việc này, lớp
+Ví dụ sau chỉ cho bạn cách sử dụng bộ lọc [[yii\filters\auth\HttpBasicAuth]] để xác thực người dùng qua việc sử dụng mã
+access token được dựa trên phương thức HTTP Basic Auth. Lưu ý rằng để làm việc này, lớp
 [[yii\web\User::identityClass|định danh user]] phải thực thi từ phương thức [[yii\web\IdentityInterface::findIdentityByAccessToken()|findIdentityByAccessToken()]].
 
 ```php
@@ -165,10 +165,10 @@ Bộ lọc phương thức xác thực thường được sử dụng để tri�
 RESTful [Authentication](rest-authentication.md).
 
 
-### [[yii\filters\ContentNegotiator|ContentNegotiator]] <span id="content-negotiator"></span>
+### Tùy biến hiển thị dữ liệu [[yii\filters\ContentNegotiator|ContentNegotiator]] <span id="content-negotiator"></span>
 
-ContentNegotiator supports response format negotiation and application language negotiation. It will try to
-determine the response format and/or language qua việc kiểm tra các tham số `GET` và HTTP header `Accept`.
+ContentNegotiator hỗ trợ tùy biến hiển thị dữ liệu cho các định dạng phản hồi và ngôn ngữ ứng dụng. Bộ lọc này sẽ ra các quyết định 
+về định dạng phản hồi và/hoặc ngôn ngữ qua việc kiểm tra các tham số `GET` và HTTP header `Accept`.
 
 Trong ví dụ sau, ContentNegotiator được thiết lập để hỗ trợ các định dạng phản hồi JSON và XML, và định dạng ngôn ngữ
 English (United States) và German.
@@ -197,7 +197,7 @@ public function behaviors()
 
 Các định dạng và ngôn ngữ thường cần được xác định sớm hơn nhiều trong quá trình
 [vòng đời ứng dụng](structure-applications.md#application-lifecycle). Vì lý do này, ContentNegotiator
-được thiết kế theo cách mà nó cũng có thể được sử dụng như một [bootstrapping component](structure-applications.md#bootstrap)
+được thiết kế theo cách mà nó cũng có thể được sử dụng như một [thành phẩn tải](structure-applications.md#bootstrap)
 bên cạnh việc được sử dụng như một bộ lọc. Ví dụ, bạn có thể cấu hình nó trong [cấu hình ứng dụng](structure-applications.md#application-configurations)
 như sau:
 
@@ -255,9 +255,9 @@ Vui lòng tham khảo mục [HTTP Caching](caching-http.md) để biết thêm c
 
 ### [[yii\filters\PageCache|PageCache]] <span id="page-cache"></span>
 
-PageCache implements server-side caching of whole pages. In the following example, PageCache is applied
-to the `index` action to cache the whole page for maximum 60 seconds or until the count of entries in the `post`
-table changes. It also stores different versions of the page depending on the chosen application language.
+PageCache thực hiện caching ở phía server-side cho toàn bộ trang. Trong ví dụ sau, PageCache được thực thi vào
+action `index` để cache toàn bộ trang cho tới 60 giây hoặc cho tới khi số lượng bản ghi của bảng `post`
+thay đổi. Nó cũng lưu trữ các phiên bản khác nhau của trang tùy thuộc vào ngôn ngữ ứng dụng đã chọn.
 
 ```php
 use yii\filters\PageCache;
@@ -282,21 +282,21 @@ public function behaviors()
 }
 ```
 
-Please refer to the [Page Caching](caching-page.md) section for more details about using PageCache.
+Vui lòng tham khảo mục [Page Caching](caching-page.md) để biết thêm thông tin về sử dụng PageCache.
 
 
 ### [[yii\filters\RateLimiter|RateLimiter]] <span id="rate-limiter"></span>
 
-RateLimiter implements a rate limiting algorithm based on the [leaky bucket algorithm](http://en.wikipedia.org/wiki/Leaky_bucket).
-It is primarily used in implementing RESTful APIs. Please refer to the [Rate Limiting](rest-rate-limiting.md) section
-for details about using this filter.
+RateLimiter thực thi vào thuật toán rate limiting được dựa trên [thuật toán cái thùng rò (leaky bucket)](http://en.wikipedia.org/wiki/Leaky_bucket).
+Nó chủ yếu được sử dụng trong việc triển khai RESTful APIs. Vui lòng tham khảo mục [Rate Limiting](rest-rate-limiting.md)
+để biết thêm thông tin về sử dụng bộ lọc này.
 
 
 ### [[yii\filters\VerbFilter|VerbFilter]] <span id="verb-filter"></span>
 
-VerbFilter checks if the HTTP request methods are allowed by the requested actions. If not allowed, it will
-throw an HTTP 405 exception. In the following example, VerbFilter is declared to specify a typical set of allowed
-request methods for CRUD actions.
+VerbFilter kiểm tra xem các phương thức truy cập HTTP có được phép thực hiện truy cập vào các hành động không. Nếu không được phép, nó sẽ trả
+về mã ngoại lệ  HTTP 405. Trong ví dụ sau, bộ lọc VerbFilter được khai báo để chỉ định một bộ phương thức yêu cầu được phép
+điển hình cho các hành động CRUD.
 
 ```php
 use yii\filters\VerbFilter;
@@ -320,14 +320,14 @@ public function behaviors()
 
 ### [[yii\filters\Cors|Cors]] <span id="cors"></span>
 
-Cross-origin resource sharing [CORS](https://developer.mozilla.org/en-US/docs/HTTP/Access_control_CORS) is a mechanism that allows many resources (e.g. fonts, JavaScript, etc.)
-on a Web page to be requested from another domain outside the domain the resource originated from.
-In particular, JavaScript's AJAX calls can use the XMLHttpRequest mechanism. Such "cross-domain" requests would
-otherwise be forbidden by Web browsers, per the same origin security policy.
-CORS defines a way in which the browser and the server can interact to determine whether or not to allow the cross-origin request.
+[CORS](https://developer.mozilla.org/en-US/docs/HTTP/Access_control_CORS) là một cơ chế cho phép nhiều tài nguyên khác nhau (chẳng hạn như fonts, JavaScript, vv.)
+của một trang Web có thể được truy vấn từ domain khác với domain của trang đó. CORS là viết tắt của từ Cross-origin resource sharing.
+Đặc biệt, với các yêu cầu JavaScript's AJAX có thể dùng cơ chế XMLHttpRequest. Như các yêu cầu "truy cập chéo" sẽ bị các trình duyệt web cấm
+, theo cùng một chính sách bảo mật nguồn gốc.
+CORS định nghĩa ra cách trình duyệt và máy chủ có thể tương tác để xác định xem có cho phép yêu cầu xuất xứ chéo hay không.
 
-The [[yii\filters\Cors|Cors filter]] should be defined before Authentication / Authorization filters to make sure the CORS headers
-will always be sent.
+Bộ lọc [[yii\filters\Cors|Cors filter]] nên được xác định trước bộ lọc Authentication / Authorization để đảm bảo các CORS headers
+sẽ được gửi.
 
 ```php
 use yii\filters\Cors;
@@ -343,18 +343,18 @@ public function behaviors()
 }
 ```
 
-Also check the section on [REST Controllers](rest-controllers.md#cors) if you want to add the CORS filter to an
-[[yii\rest\ActiveController]] class in your API.
+Bạn có thể xem thêm thông tin ở mục [REST Controllers](rest-controllers.md#cors) nếu bạn muốn thêm bộ lọc CORS vào class
+[[yii\rest\ActiveController]] trong API.
 
-The Cors filtering could be tuned using the [[yii\filters\Cors::$cors|$cors]] property.
+Bộ lọc Cors có thể được điều chỉnh bằng cách sử dụng thuộc tính [[yii\filters\Cors::$cors|$cors]].
 
-* `cors['Origin']`: array used to define allowed origins. Can be `['*']` (everyone) or `['http://www.myserver.net', 'http://www.myotherserver.com']`. Default to `['*']`.
-* `cors['Access-Control-Request-Method']`: array of allowed verbs like `['GET', 'OPTIONS', 'HEAD']`.  Default to `['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS']`.
-* `cors['Access-Control-Request-Headers']`: array of allowed headers. Can be `['*']` all headers or specific ones `['X-Request-With']`. Default to `['*']`.
-* `cors['Access-Control-Allow-Credentials']`: define if current request can be made using credentials. Can be `true`, `false` or `null` (not set). Default to `null`.
-* `cors['Access-Control-Max-Age']`: define lifetime of pre-flight request. Default to `86400`.
+* Thuộc tính `cors['Origin']`: là mảng định nghĩa các nguồn được phép. Giá trị `['*']` (tất cả) hoặc `['http://www.myserver.net', 'http://www.myotherserver.com']`. Mặc định là `['*']`.
+* Thuộc tính `cors['Access-Control-Request-Method']`: là mảng các phương thức truy cập được phép `['GET', 'OPTIONS', 'HEAD']`.  Mặc định là `['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS']`.
+* Thuộc tính `cors['Access-Control-Request-Headers']`: là mảng các header được phép. Giá trị `['*']` cho tất cả các header hoặc chỉ định một vài header được phép `['X-Request-With']`. Mặc định là`['*']`.
+* Thuộc tính `cors['Access-Control-Allow-Credentials']`: xác định nếu yêu cầu hiện tại có thể được thực hiện bằng thông tin đăng nhập. Có thể là `true`, `false` hoặc là `null` (không thiết lập). Mặc định là `null`.
+* Thuộc tính `cors['Access-Control-Max-Age']`: xác định vòng đời của các truy cập trước pre-flight. Giá trị mặc định `86400`.
 
-Ví dụ, allowing CORS for origin : `http://www.myserver.net` with method `GET`, `HEAD` and `OPTIONS` :
+Ví dụ, cho phép CORS từ domain : `http://www.myserver.net` với các phương thức `GET`, `HEAD` và `OPTIONS` :
 
 ```php
 use yii\filters\Cors;
@@ -374,8 +374,8 @@ public function behaviors()
 }
 ```
 
-You may tune the CORS headers by overriding default parameters on a per action basis.
-Ví dụ adding the `Access-Control-Allow-Credentials` for the `login` action could be done like this :
+Bạn có thể điều chỉnh CORS headers bằng việc ghi đè lên tham số trên mỗi action.
+Ví dụ thêm tham số `Access-Control-Allow-Credentials` vào action `login` có thể thực hiện như thế này :
 
 ```php
 use yii\filters\Cors;
